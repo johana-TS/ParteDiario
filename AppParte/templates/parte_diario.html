@@ -1,0 +1,27 @@
+{%  extends "index.html" %}
+
+{% block parteDiario %}
+<main class="ontainer py-5">
+    <section class="card card-body">
+        <h1 class="display-1 text-center">PARTE DIARIO</h1>        
+        <p>{{error}}</p>
+        <form action="" method="post" class="text-center" >
+            {% csrf_token %}
+            <table class="text-center">
+                <tr>
+                    <th>AGENTE </th>
+                    <th>PARTE</th>
+                </tr>
+                <tr>
+                    {{form.as_p}}
+                </tr>
+                
+            </table>
+            
+            
+            <button type="submit" class="btn btn-dark">CARGAR</button>
+        </form>
+        
+    </section>
+</main>
+    {% endblock %}

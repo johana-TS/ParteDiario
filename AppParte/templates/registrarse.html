@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% block registrarse %}
+<main class="container">
+    <div class="row">
+        <h1 class=" text-center py-5">INGRESAR</h1>
+        <div class="col-md-4 offset-md-4">
+        
+            <form action="" method="post">
+                <p>{{error}}</p>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username">Usuario</label>
+                    <input type="username" 
+                           name="username"
+                           id="username"
+                           class="form-control"
+                           placeholder="usuario">
+                </div>
+                <div class="mb-3">
+                    <label for="password1">Contraseña</label>
+                    <input type="password" 
+                           name="password1"
+                           id="password1"
+                           class="form-control"
+                           placeholder="Psw1">
+                </div>
+                <div class="mb-3">
+                    <label for="password2">Contraseña</label>
+                    <input type="password" 
+                           name="password2"
+                           id="password2"
+                           class="form-control"
+                           placeholder="Repetir contraseña">
+                </div>
+                <button class="btn btn-dark" >INGRESAR</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
