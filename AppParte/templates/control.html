@@ -1,31 +1,61 @@
 {%  extends "index.html" %}
+{% load static %}
 
 {% block control %}
 
-<table>
-    <tr>
-        <th>AGENTE</th>
-        <th>FECHA</th>
-        <th>ESTADO</th>
-        <th>VISADO</th>
-    </tr>
-    
-    {% for parte in datos %}
-        <tr>
-            <th>{{parte.agenteParte}}</th>  
-            <th>{{parte.ingresadoFecha}}</th>
-            <th>{{parte.detalle}}</th>
+<section class="container">
+    <div class="row ">
+        <div class="col-md-12 search ">
+            <form action="" method="get"> 
+                <div id="search-input">
+                    <div class="input-group col-md-6">
+                            <input type="date" name="" id="buscar">
+                            <input type="text" value="" id="conTexto">
+                            <button type="submit" class=" btn btn-dark">BUSCAR</button>
+                    </div> 
+                </div>
+            </form>
+        </div>
+    </div> 
+</section>
+
+<table class="table container">
+    <thead>
+      <tr>
+          <th scope="col">#</th>
+          <th scope="col">AGENTE</th>
+          <th scope="col">FECHA</th>
+          <th scope="col">ESTADO</th>
+          <th scope="col">VISADO</th>
+          <th scope="col">CONTROL</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for parte in datos %} 
+      <tr>
+        <th scope="row"> {{forloop.counter}}</th>
+            <td> {{parte.agenteParte}}  
+            <td>{{parte.ingresadoFecha}}</td>
+            <td>{{parte.detalle}}</td>
             {% if parte.estado %}
-                <th>visado</th>
+                <td>visado</td>
             {% else %}
-            <th>sin control</th>
+            <td>sin control</td>
             {% endif %}
-            <th><a href="">VER</a></th>
-        </tr>
-    {% endfor %}
+            <td>
+                <a href="controlModificar/{{parte.id}}" class=" btn btn-primary">MODIFICAR</a>
+                <a href="controlEliminar/{{parte.id}}" class=" btn btn-danger btnEliminar">ELIMINAR</a>
+            </td>
+       </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+<section class="container" id="modificar">
     
 
+</section>
 
-</table>
+
 
 {% endblock %}

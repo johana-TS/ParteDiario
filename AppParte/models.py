@@ -40,7 +40,7 @@ class parteDiario(models.Model):
     visadoFecha=models.DateTimeField(null=True)
     cargaFecha=models.DateTimeField(null=True, blank=True)
     usuarioVisado=models.CharField(max_length=4, null=True)
-    estado= models.BooleanField(default=True)
+    estado= models.BooleanField(default=False)
     agenteParte= models.ForeignKey(agente, on_delete=models.CASCADE, null=True)
     
 

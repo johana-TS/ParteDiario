@@ -1,6 +1,7 @@
 from http.client import HTTPResponse
 from sqlite3 import IntegrityError
-from django.shortcuts import render, redirect
+from urllib import request
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User 
 from django.contrib.auth import login, logout , authenticate # logaout espara crear la cookie de session 
@@ -10,6 +11,7 @@ from AppParte.admin import FechaRegistro
 from .forms import parteDiarioClass
 from .models import parteDiario, agente
 from django.contrib.auth.decorators import login_required 
+
 # Create your views here.
 
 
@@ -77,6 +79,7 @@ def parte_diario(request):
             formParte= parteDiarioClass(request.POST)
             nuevoParte= formParte.save(commit=False) 
             nuevoParte.usuarioIngreso = request.user
+            #chekear que usuario es para que registre el visado
             nuevoParte.save()
             return redirect ('index')
         except ValueError:
@@ -89,7 +92,37 @@ def parte_diario(request):
 def control(request):
     fechaConsulta= datetime.date.today()
     print(fechaConsulta)
+    consulta = request.GET.get("conTexto")
+    print(consulta)
+    print(request.GET)
     #fechaConsulta.strftime("%X")
     datos = parteDiario.objects.all() #(ingresadoFecha=fechaConsulta)
-    print (datos)
+   # print (datos)
     return render (request, 'control.html', {'datos':datos})
+
+@login_required
+def controlModificar(request,id):
+    parte= parteDiario.objects.get(id=id)
+    return render (request, 'editarParteDiario.html',{'parte':parte})
+
+@login_required
+def editarParte(request):
+    id= request.POST['id']
+    agente= request.POST['agente']
+    estado= request.POST['estado']
+    fecha= request.POST['fecha']
+
+    parte= parteDiario.objects.get(id=id)
+    parte.estado=estado
+    parte.cargaFecha=fecha
+    parte.save()
+
+    return redirect(request,'control')
+
+
+
+@login_required
+def controlEliminar(request,id):
+    parte= parteDiario.objects.get(id=id)
+    parte.delete()
+    return redirect ('control')
