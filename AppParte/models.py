@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class departamento(models.Model):
     nombre= models.CharField(max_length=100)
+    
 
     def __str__(self):
         return self.nombre
@@ -32,17 +33,18 @@ class parteDiario(models.Model):
         ("A","Ausente"),
         
     )
-    detalle = models.CharField(choices=opcion, 
-                               max_length=35,
-                                 default= "Presente")
+    detalle = models.CharField(choices=opcion, max_length=35, default= "Presente")
     ingresadoFecha= models.DateTimeField(auto_now_add=True)
     usuarioIngreso=models.ForeignKey(User, on_delete= models.CASCADE)
+    usuarioModifica=models.CharField(max_length=6, null=True)
+    FechaModificado=models.DateTimeField(null=True, blank=True)
     visadoFecha=models.DateTimeField(null=True)
-    cargaFecha=models.DateTimeField(null=True, blank=True)
-    usuarioVisado=models.CharField(max_length=4, null=True)
+    FechaParte=models.DateTimeField(null=True, blank=True)
+    usuarioVisado=models.CharField(max_length=6, null=True)
+    FechaVisado=models.DateTimeField(null=True, blank=True)
     estado= models.BooleanField(default=False)
     agenteParte= models.ForeignKey(agente, on_delete=models.CASCADE, null=True)
-    
+    dto=models.ForeignKey(departamento, on_delete= models.CASCADE, null=True)
 
 
     def __str__(self):

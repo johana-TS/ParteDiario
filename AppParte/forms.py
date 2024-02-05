@@ -8,5 +8,5 @@ class parteDiarioClass(ModelForm):
         model=parteDiario
         fields= ['agenteParte',
                  'detalle',
-                 'cargaFecha',
-                 ]
+                 'FechaParte',
+                ]

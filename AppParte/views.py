@@ -78,10 +78,17 @@ def parte_diario(request):
         try:
             formParte= parteDiarioClass(request.POST)
             nuevoParte= formParte.save(commit=False) 
+            print( 'recuperado:')
+            print(nuevoParte.FechaParte)
             nuevoParte.usuarioIngreso = request.user
+            if (nuevoParte.FechaParte=="" or None==nuevoParte.FechaParte ):
+                nuevoParte.FechaParte= datetime.date.today()
+                print( 'asignado:' )
+                print( nuevoParte.ingresadoFecha)
+                print( nuevoParte.FechaParte)
             #chekear que usuario es para que registre el visado
             nuevoParte.save()
-            return redirect ('index')
+            return redirect ('parte_diario')
         except ValueError:
             return render(request, 'parte_diario.html',{
             'form':parteDiarioClass,
@@ -114,7 +121,7 @@ def editarParte(request):
 
     parte= parteDiario.objects.get(id=id)
     parte.estado=estado
-    parte.cargaFecha=fecha
+    parte.FechaParte=fecha
     parte.save()
 
     return redirect(request,'control')

@@ -24,10 +24,12 @@
       <tr>
           <th scope="col">#</th>
           <th scope="col">AGENTE</th>
+          <th scope="col">INGRESADO</th>
           <th scope="col">FECHA</th>
           <th scope="col">ESTADO</th>
           <th scope="col">VISADO</th>
-          <th scope="col">CONTROL</th>
+          <th scope="col">FECHA CONTROL</th>
+          <th scope="col">USUARIO CONTROL</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -36,15 +38,18 @@
         <th scope="row"> {{forloop.counter}}</th>
             <td> {{parte.agenteParte}}  
             <td>{{parte.ingresadoFecha}}</td>
+            <td>{{parte.FechaParte}}</td>
             <td>{{parte.detalle}}</td>
             {% if parte.estado %}
                 <td>visado</td>
             {% else %}
             <td>sin control</td>
+            <td>{{parte.FechaVisado}}</td>
+            <td>{{parte.usuarioVisado}}</td>
             {% endif %}
             <td>
-                <a href="controlModificar/{{parte.id}}" class=" btn btn-primary">MODIFICAR</a>
-                <a href="controlEliminar/{{parte.id}}" class=" btn btn-danger btnEliminar">ELIMINAR</a>
+                <a href="controlModificar/{{parte.id}}" class=" btn btn-modificar">MODIFICAR</a>
+                <a href="controlEliminar/{{parte.id}}"  class=" btn  btnEliminar">ELIMINAR</a>
             </td>
        </tr>
         {% endfor %}
