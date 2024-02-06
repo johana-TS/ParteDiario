@@ -8,6 +8,7 @@ urlpatterns = [
     path('salir', views.salir, name='salir'),
     path('ingresar', views.ingresar, name='ingresar'),
     path('control', views.control, name='control'),
+    path('control?<str:texto>', views.control, name='controlbusqueda'),
     path('controlModificar/<int:id>', views.controlModificar, name='controlModificar'),
     path('controlModificar/editarParte', views.editarParte, name='controlEditar'),
     path('controlEliminar/<int:id>', views.controlEliminar, name='controlEliminar'),

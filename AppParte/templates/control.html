@@ -7,10 +7,12 @@
     <div class="row ">
         <div class="col-md-12 search ">
             <form action="" method="get"> 
+                {% if error %}
+                <p class="text-center alert alert-danger fs-6" role="alert">{{error}}</p>
+                {% endif %}
                 <div id="search-input">
                     <div class="input-group col-md-6">
-                            <input type="date" name="" id="buscar">
-                            <input type="text" value="" id="conTexto">
+                            <input type="date" name="buscar" id="buscar">
                             <button type="submit" class=" btn btn-dark">BUSCAR</button>
                     </div> 
                 </div>
@@ -25,11 +27,11 @@
           <th scope="col">#</th>
           <th scope="col">AGENTE</th>
           <th scope="col">INGRESADO</th>
-          <th scope="col">FECHA</th>
+          <th scope="col">FECHA PARTE</th>
           <th scope="col">ESTADO</th>
           <th scope="col">VISADO</th>
           <th scope="col">FECHA CONTROL</th>
-          <th scope="col">USUARIO CONTROL</th>
+          <th scope="col">USUARIO CONTROLA</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">

@@ -78,14 +78,9 @@ def parte_diario(request):
         try:
             formParte= parteDiarioClass(request.POST)
             nuevoParte= formParte.save(commit=False) 
-            print( 'recuperado:')
-            print(nuevoParte.FechaParte)
             nuevoParte.usuarioIngreso = request.user
             if (nuevoParte.FechaParte=="" or None==nuevoParte.FechaParte ):
                 nuevoParte.FechaParte= datetime.date.today()
-                print( 'asignado:' )
-                print( nuevoParte.ingresadoFecha)
-                print( nuevoParte.FechaParte)
             #chekear que usuario es para que registre el visado
             nuevoParte.save()
             return redirect ('parte_diario')
@@ -97,16 +92,27 @@ def parte_diario(request):
 
 @login_required
 def control(request):
-    fechaConsulta= datetime.date.today()
-    print(fechaConsulta)
-    consulta = request.GET.get("conTexto")
-    print(consulta)
-    print(request.GET)
-    #fechaConsulta.strftime("%X")
-    datos = parteDiario.objects.all() #(ingresadoFecha=fechaConsulta)
-   # print (datos)
-    return render (request, 'control.html', {'datos':datos})
+    if request.GET:
+        try:
+            print(request.GET)
+            fechaConsulta= datetime.date.today()
+            consulta = request.GET.get("buscar")
+            print(consulta)
+            #fechaConsulta.strftime("%X")
+            datos = parteDiario.objects.filter(FechaParte=consulta) #(ingresadoFecha=fechaConsulta)
+            print (datos)
+            return render (request, 'control.html', {'datos':datos})
+        except:   
+            error= 'DEBE INGRESAR UNA FECHA DE BUSQUEDA'
+            return render (request, 'control.html',{'error':error})
+    else:
+        fechaConsulta= datetime.date.today()
+        datos = parteDiario.objects.filter(FechaParte=fechaConsulta) #(ingresadoFecha=fechaConsulta)
+        print (datos)
+        return render (request, 'control.html', {'datos':datos})
+   
 
+       
 @login_required
 def controlModificar(request,id):
     parte= parteDiario.objects.get(id=id)
