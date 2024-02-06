@@ -9,4 +9,5 @@ class parteDiarioClass(ModelForm):
         fields= ['agenteParte',
                  'detalle',
                  'FechaParte',
+                 
                 ]

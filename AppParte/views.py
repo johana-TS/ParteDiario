@@ -92,7 +92,7 @@ def parte_diario(request):
         except ValueError:
             return render(request, 'parte_diario.html',{
             'form':parteDiarioClass,
-            'error': 'Ingresar un dato valido'
+            'error': 'INGRESAR UNA FECHA VÁLIDA'
         })      
 
 @login_required

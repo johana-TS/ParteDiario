@@ -2,25 +2,38 @@
 
 {% block parteDiario %}
 <main class="ontainer py-5">
-    <section class="card card-body">
+    <section class="card card-body ">
         <h1 class="display-1 text-center">PARTE DIARIO</h1>        
-        <p>{{error}}</p>
-        <form action="" method="post" class="text-center" >
+        <form action="" method="post" class="text-center m-auto" >
             {% csrf_token %}
-            <table class="text-center">
-                <tr>
-                    <th>AGENTE </th>
-                    <th>PARTE</th>
-                </tr>
-                <tr>
-                    {{form.as_p}}
-                </tr>
+            {% if error %}
+            <p class="text-center alert alert-danger fs-6" role="alert">{{error}}</p>
+            {% endif %}
+            <input type="hidden"  name="id" value="{{form.id}}">
+            <div class="container text-start p-3">
+
+                <div class="m-2 text-start p-2 ">
+                    <label for="agentePArte">Agente</label> 
+                    {{form.agenteParte}}
+                </div>
+                <div class="m-2 p-2">
+                    <label for="detalle">Situacion de parte</label>
+                    {{form.detalle}}"
+                </div>
+                <div class="m-2 p-2">
+                    <label for="">Fecha</label>
+                    {{form.FechaParte}}
+                </div>
+               
                 
-            </table>
-            
+            </div>        
             
             <button type="submit" class="btn btn-dark">CARGAR</button>
+            
         </form>
+            
+            
+        
         
     </section>
 </main>
